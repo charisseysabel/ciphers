@@ -3,13 +3,9 @@
  *	js code for generating caesar cipher text	
  *
  */
-
-$(document).ready(function() {
-	var key = 3;
 	var alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i",
-					"j", "k", "l", "m", "n", "o", "p", "q", "r",
-					"s", "t", "u", "v", "w", "x", "y", "z"];
-	var text = "mary had a little lamb, little lamb, little lamb!!!";
+				"j", "k", "l", "m", "n", "o", "p", "q", "r",
+				"s", "t", "u", "v", "w", "x", "y", "z"];
 
 	function encryptMsg(key, msgStr) {
 		var msg = msgStr.toLowerCase().split("");
@@ -20,7 +16,9 @@ $(document).ready(function() {
 				result += msg[i];
 				continue;
 			}	
+			
 			findPosition = alphabet.indexOf(msg[i]) + key;
+
 			if(findPosition > 26) {
 				findPosition = findPosition - 26;
 				result = result + alphabet[findPosition];
@@ -31,11 +29,20 @@ $(document).ready(function() {
 		}
 		return result;
 	}
-	console.log(encryptMsg(key, text));
 
-	$("button").click(function() {
-		var encrypt = encryptMsg(key, text);
-		$("#result").html(encrypt);
-	});
+$(document).ready(function() {
+
+	var key;
+	do {
+		key = prompt("Give me a number: ");
+	}
+	while(isNaN(parseInt(key)));
+
+	var num = parseInt(key);
+	var message = prompt("Type your message: ");
+
+	var encrypt = encryptMsg(num, message);
+
+	console.log(encrypt);
 
 });
