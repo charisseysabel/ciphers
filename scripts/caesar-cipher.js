@@ -30,19 +30,48 @@
 		return result;
 	}
 
+	function breakCaesar(string) {
+		var result;
+		var position;
+		// identify index
+		for(var i = 0; i <= 25; i++) {
+			// loop through entire string 
+			result = "";
+			position = "";
+			for(var j = 0; j < string.length; j++) {
+				if(string[j] === " " || alphabet.indexOf(string[j]) < 0 ) {
+					result += string[j];
+					continue;
+				}
+
+				position = alphabet.indexOf(string[j]) - i;
+
+				if(position < 0) {
+					position = position + alphabet.length;
+					result += alphabet[position];
+				}
+				else {
+					result += alphabet[position];
+				}
+			}
+			console.log("\n\n" + i + ":" + result);
+		}
+	}
+
 $(document).ready(function() {
 
 	var key;
 	do {
-		key = prompt("Give me a number: ");
+		key = prompt("Give me a number between 0 and 25: ");
 	}
-	while(isNaN(parseInt(key)));
+	while(isNaN(parseInt(key)) || key > 25 || key < 0);
 
 	var num = parseInt(key);
 	var message = prompt("Type your message: ");
 
 	var encrypt = encryptMsg(num, message);
-
 	console.log(encrypt);
+	var decrypt = breakCaesar(encrypt);
+
 
 });
